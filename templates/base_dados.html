@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Base de Dados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    
+</head>
+<body>
+    {% include 'navbar.html' %}            
+    {% if dados %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Base de Dados</h1>
+    </div>
+    <div class="d-block">
+        <table id="tabela-dados" class="table table-striped mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Impacto</th>
+                    <th scope="col">Recomendação</th>
+                    <th scope="col">Probabilidade</th>
+                    <th scope="col">Impacto</th>
+                    <th scope="col">Risco</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dado in dados %}
+                <tr>
+                    <td>{{ dado.nome }}</td>
+                    <td>{{ dado.descricao }}</td>
+                    <td>{{ dado.impacto }}</td>
+                    <td>{{ dado.recomendacao }}</td>
+                    <td>{{ dado.probabilidade }}</td>
+                    <td>{{ dado.impacto_novamente }}</td>
+                    <td>{{ dado.risco }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="mt-5">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+    {% endif %} 
+
+    <script>
+        $(document).ready(function() {
+            $('#tabela-dados').DataTable({
+                "paging": true,
+                "pageLength": 5,
+                "searching": true,
+                "ordering": true,
+                "info": false
+            });
+        });
+    </script>     
+</body>
+</html>

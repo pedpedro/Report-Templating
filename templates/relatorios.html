@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Relatórios Gerados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<script>
+    $(document).on('click', '.excluir-btn', function() {
+        var filename = $(this).data('filename');
+        if (confirm('Tem certeza de que deseja excluir o relatório "' + filename + '"?')) {
+            $.ajax({
+                url: '{{ url_for("excluir_relatorio") }}',
+                type: 'POST',
+                data: {filename: filename},
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
+    });
+</script>
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Relatórios Gerados</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome do Cliente</th>
+                    <th scope="col">Data de Geração</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(1, relatorios|length + 1) %}
+                <tr>
+                    <th class="align-middle" scope="row">{{ i }}</th>
+                    <td class="align-middle">{{ relatorios[i-1][10:-5] }}</td>
+                    <td class="align-middle">{{ relatorios[i-1][-14:-5].replace("-", "/") }}</td>
+                    <td>
+                        <a href="{{ url_for('download_relatorio', filename=relatorios[i-1]) }}" class="btn btn-primary"><i class="fa fa-download"></i></a>
+                        <button class="btn btn-danger excluir-btn" data-filename="{{ relatorios[i-1] }}"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>        
+        <div class="mt-5">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

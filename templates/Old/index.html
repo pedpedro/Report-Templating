@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Relatórios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.css">
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.js"></script>
+<script>
+    function gerarRelatorio() {
+        Swal.fire({
+            title: "Relatório gerado com sucesso!",
+            icon: "success",
+            confirmButtonText: "Ok"
+        });
+    }
+</script>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Gerador de Relatórios</h1>
+        <form id="report-form" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="cliente_nome">Nome do Cliente:</label>
+                <input type="text" class="form-control" id="cliente_nome" name="cliente_nome">
+            </div>
+            <div class="form-group">
+                <label for="teste_titulo">Título do Teste:</label>
+                <input type="text" class="form-control" id="teste_titulo" name="teste_titulo">
+            </div>
+            <div class="form-group">
+                <label for="teste_ambiente">Ambiente do Teste:</label>
+                <select class="form-control" id="teste_ambiente" name="teste_ambiente">
+                    <option value="Infraestrutura Interna">Infraestrutura Interna</option>
+                    <option value="Infraestrutura Externa">Infraestrutura Externa</option>
+                    <option value="Aplicação WEB">Aplicação WEB</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="teste_tipo">Tipo de Teste:</label>
+                <select class="form-control" id="teste_tipo" name="teste_tipo">
+                    <option value="Black Box">Black Box</option>
+                    <option value="Gray Box">Gray Box</option>
+                    <option value="White Box">White Box</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="data_capa">Data da Capa:</label>
+                <input type="text" class="form-control" id="data_capa" name="data_capa">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="display_web" name="display_web">
+                <label class="form-check-label" for="display_web">Exibir seção WEB</label>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="display_infra" name="display_infra">
+                <label class="form-check-label" for="display_infra">Exibir seção Infraestrutura</label>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="display_mobile" name="display_mobile">
+                <label class="form-check-label" for="display_mobile">Exibir seção Mobile</label>
+            </div>
+            <div class="form-group">
+                <label for="modelo_relatorio">Modelo de Relatório:</label>
+                <input type="file" class="form-control-file" id="modelo_relatorio" name="modelo_relatorio">
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="gerarRelatorio()">Gerar Relatório</button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

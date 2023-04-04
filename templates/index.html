@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Relatórios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+
+
+<script>
+    function gerarRelatorio() {
+        Swal.fire({
+            title: "Relatório gerado com sucesso!",
+            icon: "success",
+            confirmButtonText: "Ok"
+        });
+    }
+    $(document).ready(function() {
+        $("#num_pontos_web, #num_pontos_infra, #num_pontos_mobile").hide();
+    });
+
+    $(document).ready(function() {
+        $("#display_web").click(function() {
+            if($(this).is(":checked")) {
+            $("#num_pontos_web").show();
+            } else {
+            $("#num_pontos_web").hide();
+            }
+        });
+        
+        $("#display_mobile").click(function() {
+            if($(this).is(":checked")) {
+            $("#num_pontos_mobile").show();
+            } else {
+            $("#num_pontos_mobile").hide();
+            }
+        });
+        
+        $("#display_infra").click(function() {
+            if($(this).is(":checked")) {
+            $("#num_pontos_infra").show();
+            } else {
+            $("#num_pontos_infra").hide();
+            }
+        });
+    });
+
+</script>
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container mt-5">
+        <form id="report-form" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="modelo_relatorio">Modelo de Relatório:</label>
+                <input type="file" class="form-control-file" id="modelo_relatorio" name="modelo_relatorio">
+            </div>
+            <div class="form-group">
+                <label for="cliente_nome">Nome do Cliente:</label>
+                <input type="text" class="form-control" id="cliente_nome" name="cliente_nome" placeholder="Ex.: KPMG - InternalJob">
+            </div>
+            <div class="form-group">
+                <label for="teste_titulo">Título do Teste:</label>
+                <input type="text" class="form-control" id="teste_titulo" name="teste_titulo" placeholder="Ex.: Teste de intrusão web">
+            </div>
+            <div class="form-group">
+                <label for="teste_ambiente">Ambiente(s) de Teste:</label>
+                <input type="text" class="form-control" id="teste_ambiente" name="teste_ambiente" placeholder="Ex.: Infraestrutura [Externa/Interna] e Mobile">
+            </div>
+            <div class="form-group">
+                <label for="teste_tipo">Tipo de Teste:</label>
+                <select class="form-control" id="teste_tipo" name="teste_tipo">
+                    <option value="Black Box">Black Box</option>
+                    <option value="Gray Box">Gray Box</option>
+                    <option value="White Box">White Box</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="data_capa">Data da Capa:</label>
+                <input type="text" class="form-control" id="data_capa" name="data_capa" placeholder="Ex.: Março de 2023">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="display_web" name="display_web">
+                <label class="form-check-label" for="display_web">Exibir seção WEB</label>
+                <input type="text" class="form-control" id="num_pontos_web" name="num_pontos_web" placeholder="Quantidade de pontos achados em Web">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="display_infra" name="display_infra">
+                <label class="form-check-label" for="display_infra">Exibir seção Infraestrutura</label>
+                <input type="text" class="form-control" id="num_pontos_infra" name="num_pontos_infra" placeholder="Quantidade de pontos achados em Infraestrutura">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="display_mobile" name="display_mobile">
+                <label class="form-check-label" for="display_mobile">Exibir seção Mobile</label>
+                <input type="text" class="form-control" id="num_pontos_mobile" name="num_pontos_mobile" placeholder="Quantidade de pontos achados em Mobile">
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="gerarRelatorio()">Gerar Relatório</button>
+        </form>
+    </div>
+</body>
+</html>    
